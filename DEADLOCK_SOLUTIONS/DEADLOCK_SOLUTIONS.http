@@ -1,6 +1,0 @@
-@DEADLOCK_SOLUTIONS_HostAddress = http://localhost:5078
-
-GET {{DEADLOCK_SOLUTIONS_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

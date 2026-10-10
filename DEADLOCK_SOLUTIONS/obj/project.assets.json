@@ -4452,23 +4452,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\maria.soriano\\.nuget\\packages\\": {},
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\maria.soriano\\source\\repos\\DEADLOCK_SOLUTIONS\\DEADLOCK_SOLUTIONS\\DEADLOCK_SOLUTIONS.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Documents\\DEADLOCK_SOLUTIONS_API\\DEADLOCK_SOLUTIONS\\DEADLOCK_SOLUTIONS.csproj",
       "projectName": "DEADLOCK_SOLUTIONS",
-      "projectPath": "C:\\Users\\maria.soriano\\source\\repos\\DEADLOCK_SOLUTIONS\\DEADLOCK_SOLUTIONS\\DEADLOCK_SOLUTIONS.csproj",
-      "packagesPath": "C:\\Users\\maria.soriano\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\maria.soriano\\source\\repos\\DEADLOCK_SOLUTIONS\\DEADLOCK_SOLUTIONS\\obj\\",
+      "projectPath": "C:\\Users\\Admin\\Documents\\DEADLOCK_SOLUTIONS_API\\DEADLOCK_SOLUTIONS\\DEADLOCK_SOLUTIONS.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Admin\\Documents\\DEADLOCK_SOLUTIONS_API\\DEADLOCK_SOLUTIONS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\maria.soriano\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4536,6 +4536,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.31, 8.0.31]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[8.0.31, 8.0.31]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.31, 8.0.31]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.31, 8.0.31]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -4544,7 +4562,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

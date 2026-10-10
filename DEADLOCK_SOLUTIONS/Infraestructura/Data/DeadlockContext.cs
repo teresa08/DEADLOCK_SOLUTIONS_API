@@ -1,125 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
 using DEADLOCK_SOLUTIONS.Dominio.Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace DEADLOCK_SOLUTIONS.Infraestructura.Data;
 
-public partial class DeadlockContext : DbContext
+public class DeadlockContext(DbContextOptions<DeadlockContext> options) : DbContext(options)
 {
-    public DeadlockContext()
-    {
-    }
+    public DbSet<Cliente> Clientes => Set<Cliente>();
 
-    public DeadlockContext(DbContextOptions<DeadlockContext> options)
-        : base(options)
-    {
-    }
+    public DbSet<Producto> Productos => Set<Producto>();
 
-    public virtual DbSet<Cliente> Clientes { get; set; }
+    public DbSet<Orden> Ordenes => Set<Orden>();
 
-    public virtual DbSet<Factura> Facturas { get; set; }
+    public DbSet<OrdenItem> OrdenItems => Set<OrdenItem>();
 
-    public virtual DbSet<Ordene> Ordenes { get; set; }
-
-    public virtual DbSet<OrdenesItem> OrdenesItems { get; set; }
-
-    public virtual DbSet<Producto> Productos { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost,1433;User Id=sa;Password=12345678Qwe**;Database=DEADLOCK;TrustServerCertificate=True;");
+    public DbSet<Factura> Facturas => Set<Factura>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Cliente__3214EC077B62C27C");
-
-            entity.ToTable("Cliente");
-
-            entity.Property(e => e.Apellido)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Correo)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Direccion)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Fecha)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Nombre)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.Numero)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-        });
-
-        modelBuilder.Entity<Factura>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Factura__3214EC07AA60701E");
-
-            entity.ToTable("Factura");
-
-            entity.Property(e => e.Fecha)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Numero)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-        });
-
-        modelBuilder.Entity<Ordene>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Ordenes__3214EC0700C333FA");
-
-            entity.Property(e => e.Fecha)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-
-            entity.HasOne(d => d.IdClienteNavigation).WithMany(p => p.Ordenes)
-                .HasForeignKey(d => d.IdCliente)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Ordenes__IdClien__286302EC");
-        });
-
-        modelBuilder.Entity<OrdenesItem>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__OrdenesI__3214EC07099C00C7");
-
-            entity.Property(e => e.Fecha)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-
-            entity.HasOne(d => d.IdOrdenesNavigation).WithMany(p => p.OrdenesItems)
-                .HasForeignKey(d => d.IdOrdenes)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrdenesIt__IdOrd__2F10007B");
-
-            entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.OrdenesItems)
-                .HasForeignKey(d => d.IdProducto)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrdenesIt__IdPro__300424B4");
+            entity.Property(cliente => cliente.Nombre).HasMaxLength(50);
+            entity.Property(cliente => cliente.Apellido).HasMaxLength(100);
+            entity.Property(cliente => cliente.Telefono).HasMaxLength(20);
+            entity.Property(cliente => cliente.Correo).HasMaxLength(100);
+            entity.Property(cliente => cliente.Direccion).HasMaxLength(100);
         });
 
         modelBuilder.Entity<Producto>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Producto__3214EC0777F30A25");
-
-            entity.ToTable("Producto");
-
-            entity.Property(e => e.Nombre)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.Precio).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.Stock).HasColumnName("stock");
+            entity.Property(producto => producto.Nombre).HasMaxLength(50);
+            entity.Property(producto => producto.Precio).HasColumnType("decimal(18, 2)");
+            entity.HasData(
+                new Producto { Id = 1, Nombre = "Teclado", Precio = 45.00m, Stock = 50 },
+                new Producto { Id = 2, Nombre = "Mouse", Precio = 20.00m, Stock = 80 },
+                new Producto { Id = 3, Nombre = "Monitor", Precio = 180.00m, Stock = 25 },
+                new Producto { Id = 4, Nombre = "Audifonos", Precio = 35.50m, Stock = 40 });
         });
 
-        OnModelCreatingPartial(modelBuilder);
-    }
+        modelBuilder.Entity<Orden>(entity =>
+        {
+            entity.ToTable("Ordenes");
+            entity.HasOne(orden => orden.Cliente)
+                .WithMany(cliente => cliente.Ordenes)
+                .HasForeignKey(orden => orden.ClienteId)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasMany(orden => orden.Items)
+                .WithOne(item => item.Orden)
+                .HasForeignKey(item => item.OrdenId);
+            entity.HasOne(orden => orden.Factura)
+                .WithOne(factura => factura.Orden)
+                .HasForeignKey<Factura>(factura => factura.OrdenId);
+        });
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        modelBuilder.Entity<OrdenItem>(entity =>
+        {
+            entity.Property(item => item.PrecioUnitario).HasColumnType("decimal(18, 2)");
+            entity.HasOne(item => item.Producto)
+                .WithMany()
+                .HasForeignKey(item => item.ProductoId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Factura>(entity =>
+        {
+            entity.Property(factura => factura.Numero).HasMaxLength(50);
+            entity.Property(factura => factura.Total).HasColumnType("decimal(18, 2)");
+            entity.HasIndex(factura => factura.Numero).IsUnique();
+        });
+    }
 }

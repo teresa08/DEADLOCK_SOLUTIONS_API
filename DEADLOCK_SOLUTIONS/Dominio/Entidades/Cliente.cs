@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
 namespace DEADLOCK_SOLUTIONS.Dominio.Entidades;
 
-public partial class Cliente
+public class Cliente
 {
     public int Id { get; set; }
 
@@ -11,13 +8,13 @@ public partial class Cliente
 
     public string Apellido { get; set; } = null!;
 
-    public string? Numero { get; set; }
+    public string? Telefono { get; set; }
 
     public string? Correo { get; set; }
 
     public string? Direccion { get; set; }
 
-    public DateTime? Fecha { get; set; }
+    public DateTime Fecha { get; set; } = DateTime.UtcNow;
 
-    public virtual ICollection<Ordene> Ordenes { get; set; } = new List<Ordene>();
+    public ICollection<Orden> Ordenes { get; set; } = new List<Orden>();
 }

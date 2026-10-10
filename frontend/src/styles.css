@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f4f5f7;
+  color: #1f2933;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+nav,
+form,
+.fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.columna {
+  flex-direction: column;
+}
+
+input,
+select {
+  flex: 1;
+  min-width: 140px;
+  padding: 8px;
+  border: 1px solid #cbd2d9;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: #1f2933;
+  color: #fff;
+  cursor: pointer;
+}
+
+nav button {
+  background: #cbd2d9;
+  color: #1f2933;
+}
+
+nav button.activo {
+  background: #1f2933;
+  color: #fff;
+}
+
+button.peligro {
+  background: #b42318;
+}
+
+td button {
+  margin-right: 4px;
+  padding: 4px 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th,
+td {
+  padding: 8px;
+  border-bottom: 1px solid #e4e7eb;
+  text-align: left;
+}
+
+article {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid #e4e7eb;
+  border-radius: 6px;
+  background: #fff;
+}
+
+article header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.factura {
+  margin-top: 16px;
+  border-color: #1f2933;
+}
+
+.total {
+  margin: 8px 0 0;
+  text-align: right;
+  font-weight: 600;
+}
+
+.exito,
+.error {
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.exito {
+  background: #d1fadf;
+}
+
+.error {
+  background: #fee4e2;
+}
